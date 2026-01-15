@@ -1,0 +1,40 @@
+    Why docker?
+Docker is more light weight and provides the same functionality as a virtual machine.
+    Virtual Machines                             Docker
+1)Occupies alot of memory space              Docker containers occupy less space on the host machine
+on the host machine.
+2)Long boot-up time                          Short boot-up time.
+3)Running multiple virtual machines          Containers have a better performance as they
+leads to unstable performance                are hosted in a single Docker engine.
+4)Difficult to scale up                      Easy to scale up.
+5)Low efficiency                             High efficiency
+6)Compatibility issues while porting         Easy portable across different platforms
+across different platforms
+7)Data volumes cannot be shared              Data volumes can be shared and reused among multiple containers
+
+DevOps and its tools
+    What is DevOps
+This is a collaboration between development and operation teams which enables continuous delivery of applications and services to our end users.
+Developers are interested in
+-Planning
+-Codebase
+-Building
+-Testing
+while Operations are to efficiently
+-Deploy
+-Operate
+-Monitor
+For planning and codebase, we use tools like git or jira
+For Building, we use Gradel and Maven
+For Testing we use Selenuim(Se)
+The integration between dev and ops, we use Jenkins
+The deployment Operation is done with Docker and chef
+For Monitoring, we use Nagios
+
+    What is Docker?
+Docker is a tool which is used to automate the deployment of applications in lightweight containers so
+that the applications can work efficiently in different environments.
+
+
+How does Docker work
+What are the components of Docker?
