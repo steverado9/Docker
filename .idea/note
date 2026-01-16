@@ -34,7 +34,81 @@ For Monitoring, we use Nagios
     What is Docker?
 Docker is a tool which is used to automate the deployment of applications in lightweight containers so
 that the applications can work efficiently in different environments.
-
+The container is a software package that consist with dependecies requred to run the application.
+    Docker container Features
+-Multiple containers run on the same hardware
+-The containers are Maintained in isolated environment
+-They are highly productive
+-They are quick and easy to configure
+Example
+1)lets take an example where you plan to rent a house in Airbnb
+But in the house, there are 3 rooms and only one cupboard and kitchen.
+-Problem: non of the guest wants to share cupboard and kitchen.
+Because every individual has different peferences when it comes to the cupboard and kitchen usage
+-solution: we put a kitchen and cupboard in eachroom
+2)lets use the example with computers, where all the three applications use different frameworks
+What if i want to run all my applications with their suitable frameworks?
+This is where docker will help you run the applications with their different frameworks
+solution: Docker provides the suitable frameworks for each suitable application
+Since Every Appllication has a framework with a suitable version,
+this space also can be utilized for a new software application along with its required framework.
 
 How does Docker work
+Docker is the base engine installed on your host machine to build and run containers using docker components and services.
+-Docker uses a client-server architecture
+There is a client installed on the hardware and
+there is a client that conatins the docker product.
+there is a server that controls how the docker client is created
+-Docker cient and server communicate using Rest Api
+-DOcker client is a service which runs a command
+The command is translated using REST API and is sent to the Docker Daemon(Server)
+-Then, Docker Daemon checks the client request and interacts with the operating system in order to create or manage containers
+
 What are the components of Docker?
+The four main components the comprises the docker engine
+1)Docker client and server
+2)Docker images
+3)Docker containers
+4)Docker registry
+
+Docker client and server
+-Docker client is accessed from the terminal(power shell) and docker Host runs the Docker Daemon and registry
+-A user can build Docker images and run Docker containers by passing commands from the Docker client to Docker Server
+
+Docker images
+-Docker image is a template with instructions, which is used for creating Docker containers.
+-A Docker image is built using a file called Docker file
+-once you have created that file, the docker image is stored in a Docker Hub or in a repository(like registry.hub.Docker.com)
+    Syntax to create a Docker Container using Docker image
+Docker container create [OPTIONS] IMAGE [COMMAND] [ARG]
+-you are creating an option of a new container
+-you are identifying what the image will look like
+-what are the commands needed and the arguements in those commands
+
+Docker containers
+-The Docker container is a standalone executable software package which includes applications and their dependecies.
+-Docker is so light weight that Numerous Docker Containers run on the same infrastructure and share operating system(os) with its other container.
+-Here, each application runs in isolation
+
+Docker registry
+Docker registry is an open source server-side service used for hosting and distributing images.
+-Docker also has its own default registry called Docker Hub
+-Here, images can be stored in either public or private repositories.
+public repositories can be used to host Docker images which can be used by everyone.
+private repositories allows a user to store Docker images that he/she wants to keep priavte.
+-Pull and push are the commands used by users in order to intreact with a Docker registry
+In order to build a container, pull command is used to get a Docker image from the Docker repository
+    syntax
+Docker pull <image_name>:<tags associated with the image>
+This pulls an image from Docker Repository
+-With push command, a user can store the Docker image in Docker registry
+    syntax
+Docker push <image_name>:<tag>
+This pushes an image to Docker Repository
+
+Recap
+-Docker file creates a Docker image using the build command
+-A docker image contains all the docker project's code
+-Using the Docker image, any user can run the code in order to create Docker Containers
+-once a Docker image is built, its uploaded in a registry or a DOcker Hub which can be shared across your entire team
+-From the Docker Hub, users can get the Docker image and build new containers
