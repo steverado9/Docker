@@ -1,3 +1,4 @@
+Video 1
     Why docker?
 Docker is more light weight and provides the same functionality as a virtual machine.
     Virtual Machines                             Docker
@@ -59,8 +60,8 @@ Docker is the base engine installed on your host machine to build and run contai
 There is a client installed on the hardware and
 there is a client that conatins the docker product.
 there is a server that controls how the docker client is created
--Docker cient and server communicate using Rest Api
--DOcker client is a service which runs a command
+-Docker client and server communicate using Rest Api
+-Docker client is a service which runs a command
 The command is translated using REST API and is sent to the Docker Daemon(Server)
 -Then, Docker Daemon checks the client request and interacts with the operating system in order to create or manage containers
 
@@ -110,5 +111,26 @@ Recap
 -Docker file creates a Docker image using the build command
 -A docker image contains all the docker project's code
 -Using the Docker image, any user can run the code in order to create Docker Containers
--once a Docker image is built, its uploaded in a registry or a DOcker Hub which can be shared across your entire team
+-once a Docker image is built, its uploaded in a registry or a Docker Hub which can be shared across your entire team
 -From the Docker Hub, users can get the Docker image and build new containers
+
+Video 2
+What is docker
+This is a way to package software so it can run on any hardware.
+Three things you must know to understand how the process works
+-Dockerfile: This is a blue print for building a docker image.
+-Image: This is a template for running a docker container
+-Container: This is a running process
+The developer that created the software can define the environment with a docker file
+Then any developer can use the docker file rebuild the environment which is saved as an imutable snapshot know as an image
+Images can be uploaded to the cloud and be made both public and private registries
+And any developer that wants to run that software can pull the image down to create a container(which is just the running process of that image)
+In other words, one image file can be used spon the same process multiple times in multiple places
+    Steps
+Download docker extensions for your IDE
+The dockerfile conatains code to build the docker image and ultimately run your app as a container
+-create a docker file in the project
+    Docker commands
+docker ps
+This gives a list of all the running containers on your system
+
