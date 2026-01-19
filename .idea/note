@@ -125,11 +125,62 @@ The developer that created the software can define the environment with a docker
 Then any developer can use the docker file rebuild the environment which is saved as an imutable snapshot know as an image
 Images can be uploaded to the cloud and be made both public and private registries
 And any developer that wants to run that software can pull the image down to create a container(which is just the running process of that image)
-In other words, one image file can be used spon the same process multiple times in multiple places
-    Steps
-Download docker extensions for your IDE
-The dockerfile conatains code to build the docker image and ultimately run your app as a container
--create a docker file in the project
+In other words, one image file can be used to spon the same process multiple times in multiple places
+    instructions to build a docker image
+Download docker extensions for your IDE(optional)
+-create a docker file in the root of the project
+The dockerfile contains code to build the docker image and ultimately run your app as a container
+-The first instruction in our docker file is 'FROM'.
+-The next is the official node js image(node:12).
+-Add the working directory
+-Add our app source code(we use the 'COPY' instruction which takes two arguments)
+The package.json location and where we want to copy it in the contianer(The working diretory)
+-Then we RUN(it is just like opening the therminal and dong npm install)
+after that is finished, the results will be commit to the docker image as a layer
+since we now have our modules in the image by doing the first COPY, we can now copy over our source code by
+-COPY . . (this copies all our local files to the working directory)
+we dont want to copy the node modules, so we create a for docker to ignore the node modules
+-create a ".dockerignore file" and add the node_modules to it. this works like a .gitignore file
+in order to run our code, we are using an environment variable, we can set the environment variable in the container using
+-ENV PORT=8080 (This is so we can access our express app publicly)
+-CMD [ "npm", "start" ]
+There can only be one of the above per docker file and it tells the container how to run the actual application
+    command to build a docker image
+-docker build -t steverado9/demoapp:1.0 .
+This will give your image a name tag that is easy to remember,
+t=tag, steverado9=name on your dockerhub, 1.0=version, .=path to the dockerfile which is the current working directory
+After we have sucessfully built the image,
+we can use it as a base image to create other images or we can use it to run containers
+To use this image in the real word,
+We push it a container registry somewhere(dockerhub or your favourite cloud provider)
+The command to do that is
+-docker push
+and a developer somewhere else can do docker pull to pull the image.
+Since we are just running it locally on our system, we do this on our termianl
+-docker run image Id
+This will create a running process called a container
+-we see app listening to local host 8080
+but if we go to local host 8080, we wont see anything
+    why cant we access our container locally
+by default, it is not accessable to the outside world
+we have to refactor our command in our docker file
+by using the p flag to implement port forwarding from the docker container to our local machine
+so we run,
+docker run -p 5000:8080 Image id
+
+When you stop a continer, the any data created inside of it will be lost
+    How to share data between multiple containers
+This can be done with volumes
+A volume is a dedicated folder on the host machine and inside this folder,
+a container can create files that can be re-mounted into future containers or multiple containers at the same time
+to create a volume, we use
+-docker volume create folder_name
+-docker run / --mount source=folder_name
+now multiple containers can mount this container and access the same set of files and the files stick around after the containers are shutdown
+
+    Debugging
+When you go to the logs of a container, you can click on the logs
+
     Docker commands
 docker ps
 This gives a list of all the running containers on your system
