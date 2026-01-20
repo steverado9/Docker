@@ -139,7 +139,7 @@ The package.json location and where we want to copy it in the contianer(The work
 after that is finished, the results will be commit to the docker image as a layer
 since we now have our modules in the image by doing the first COPY, we can now copy over our source code by
 -COPY . . (this copies all our local files to the working directory)
-we dont want to copy the node modules, so we create a for docker to ignore the node modules
+we dont want to copy the node modules, so we create a docker ignore file to ignore the node modules
 -create a ".dockerignore file" and add the node_modules to it. this works like a .gitignore file
 in order to run our code, we are using an environment variable, we can set the environment variable in the container using
 -ENV PORT=8080 (This is so we can access our express app publicly)
@@ -152,7 +152,7 @@ t=tag, steverado9=name on your dockerhub, 1.0=version, .=path to the dockerfile 
 After we have sucessfully built the image,
 we can use it as a base image to create other images or we can use it to run containers
 To use this image in the real word,
-We push it a container registry somewhere(dockerhub or your favourite cloud provider)
+We push it to a container registry somewhere(dockerhub or your favourite cloud provider)
 The command to do that is
 -docker push
 and a developer somewhere else can do docker pull to pull the image.
@@ -168,7 +168,7 @@ by using the p flag to implement port forwarding from the docker container to ou
 so we run,
 docker run -p 5000:8080 Image id
 
-When you stop a continer, the any data created inside of it will be lost
+When you stop a continer, any data created inside of it will be lost
     How to share data between multiple containers
 This can be done with volumes
 A volume is a dedicated folder on the host machine and inside this folder,
@@ -181,7 +181,147 @@ now multiple containers can mount this container and access the same set of file
     Debugging
 When you go to the logs of a container, you can click on the logs
 
-    Docker commands
+    Docker compose
+This is a tool for running multiple docker containers at the same time
+Example
+Lets image our node app wants to access mySQL database, and we want a volume to persit the database accross multiple containers.
+-we can manage all that by creating a "docker-compose.yml file" in the root of our project
+-Inside the file, we have a services object
+where each key in the object represents a different container that we want to run
+-we use "web" to define our node.js app that e have already built
+-We use build to point it to the current working directory where it can find the docker file
+-we will also define the port forwarding configuration as well
+-we have a seperate container 'db' which is our my sql database process
+-we also define a volume to store the database data across multiple containers
+and we can mount that volume in our db container
+after we have this configuration set, we can run this in the command line
+-docker-compose up
+we will find this file and run all the containers together
+run
+-docker-compose down
+to shut down all the containers together
+
+video 3
+    What is Docker?
+Docker is a platform for building, running and shipping applications in a consistent manner.
+With docker, we can easily package our application with everything it needs and run it anywhere.
+
+    Virtual Machines vs Containers
+-A virtual machine is an abstraction of a machine(physical hardware).
+meaning A VM is a pretend computer inside your real computer.
+
+-A container is an isolated environment for running an application.
+containers
+-Allow running multiple apps in isolation
+-Are lightweight
+-use operating system of the host
+-starts quickly
+
+    Architecture of Docker
+Docker uses a client server architecture
+It has a client component that talks to a server component using REST api
+The server aka Docker engine sits on the background and takes care of building and running docker containers.
+A container share the kernel of the host computer.
+The kernel is the core of an operating system(it manages applications and hardware resources)
+Every os has its own karnel and each karnel has different apis
+that is why you cannot run a linux application on a mac and a windows application on a mac
+cos under the hood this application needs to talk to the karnel of this os.
+
+    Development Workflow when using docker
+-We take an application and dockerize it
+-This is done by creating a dockerfile
+-A dockerfile contains a set of instructions that docker uses to package up the application into an image.
+-This image contains everything an application needs to run.
+-Once we have an image, we tell docker to start a container using that image.
+-A container is a process but it is a special type of process cos it contains its own file system controlled by the image.
+-We can push the image to a registry like "docker hub"
+-Docker hub is a storage for images that anyone can use
+-When our application is on docker hub, we can pull it on any machine running docker and we can start our application.
+    A typical development workflow
+steps
+cd to Desktop
+1)mkdir hello-docker
+create a folder called hello-docker
+2)cd hello-docker
+change directory to hello-docker
+3)code .
+open vs code
+4)create a new file "app.js" and write a javascript code
+5)use "node filename" to see the code in the terminal
+6)create a "Dockerfile"
+7)FROM base_image
+what is a base_image
+you can find base_images in dockerhub, so dockerhub is a registry for base_images
+"FROM node:alpine"
+alpine: This is a small size of base image that we are going to be using for this tutorial
+8)We need to copy our application (program files) into the image directory called app
+COPY . /app
+9)The current working directory in the image
+WORKDIR /app
+9)we use the command instruction to execute a command
+CMD node app.js
+10) we go to the terminal and run to build our image
+docker build -t hello-docker .
+-t=tag hello-docker=tagname .=current directory
+11) to see all the images in our computer
+-docker images or docker image ls. ls = short for list
+12)now we can run this image on any machine running docker
+since we are using our local machine,
+-docker run Repository(hello-docker)
+
+    Linux command line
+Linux distribution/linux distros
+linux is an open source software and many individuals and community have created their own version of linux called linux distributions.
+Each of this distributions is made to fix specialized needs
+Examples of Distros
+Ubuntu
+Debian
+Alpine
+Fedora
+centOs etc
+    Running Linux(Ubuntu)
+linux is a case sensitive operating system
+-docker run ubuntu
+if we have this image locally, docker is going to start a container with this image.
+Other wise it is going to pull this image behind the scene and then start a container.
+-it stopped running the container, so we are going to run it in interactive mode
+docker run -it ubuntu
+-when we run this we get a shell prompt (root@23b88816f598:/#)
+-The shell is a program that takes our commands and passes them to operating system(kernel) for execution
+root=currently logged in user which has the highest privilleges
+after the @ which is "23b88816f598" is generated by docker which is the name of the machine
+/=where we are in the file system(root directory), highest directory in the file system.
+#=i have the highest privilleges cos i have been logged in as root user
+$=normal user
+-using the 'history' command, we can see all the commands we have executed lately
+-'apt' this is a package manger in ubuntu which stands for advanced package tool
+-apt list : to see all the packages in the database
+-apt update: this is used to update the database
+-apt install nano
+lets install 'nano': This is a basic text editor for linux
+note: before installing a package, always run apt update to update the package database and then run apt install
+type nano to see the text editor
+-ctrl l, to clear the terminal window
+-to remove nano
+-apt remove nano
+
+    linux file system
+In linux everything is a file
+
+
+
+
+docker commands
 docker ps
-This gives a list of all the running containers on your system
+to see the list of running processes/containers
+
+docker ps -a
+we can see stopped containers
+
+docker run -it
+to start a container and intract with it(starting a container in interactive mode)
+
+    Package Manager
+
+
 
