@@ -35,7 +35,7 @@ For Monitoring, we use Nagios
     What is Docker?
 Docker is a tool which is used to automate the deployment of applications in lightweight containers so
 that the applications can work efficiently in different environments.
-The container is a software package that consist with dependecies requred to run the application.
+The container is a software package that consist with dependecies required to run the application.
     Docker container Features
 -Multiple containers run on the same hardware
 -The containers are Maintained in isolated environment
@@ -45,7 +45,7 @@ Example
 1)lets take an example where you plan to rent a house in Airbnb
 But in the house, there are 3 rooms and only one cupboard and kitchen.
 -Problem: non of the guest wants to share cupboard and kitchen.
-Because every individual has different peferences when it comes to the cupboard and kitchen usage
+Because every individual has different preferences when it comes to the cupboard and kitchen usage
 -solution: we put a kitchen and cupboard in eachroom
 2)lets use the example with computers, where all the three applications use different frameworks
 What if i want to run all my applications with their suitable frameworks?
@@ -66,7 +66,7 @@ The command is translated using REST API and is sent to the Docker Daemon(Server
 -Then, Docker Daemon checks the client request and interacts with the operating system in order to create or manage containers
 
 What are the components of Docker?
-The four main components the comprises the docker engine
+The four main components that comprises the docker engine
 1)Docker client and server
 2)Docker images
 3)Docker containers
@@ -135,7 +135,7 @@ The dockerfile contains code to build the docker image and ultimately run your a
 -Add the working directory
 -Add our app source code(we use the 'COPY' instruction which takes two arguments)
 The package.json location and where we want to copy it in the contianer(The working diretory)
--Then we RUN(it is just like opening the therminal and dong npm install)
+-Then we RUN(it is just like opening the therminal and doing npm install)
 after that is finished, the results will be commit to the docker image as a layer
 since we now have our modules in the image by doing the first COPY, we can now copy over our source code by
 -COPY . . (this copies all our local files to the working directory)
@@ -188,7 +188,7 @@ Lets image our node app wants to access mySQL database, and we want a volume to 
 -we can manage all that by creating a "docker-compose.yml file" in the root of our project
 -Inside the file, we have a services object
 where each key in the object represents a different container that we want to run
--we use "web" to define our node.js app that e have already built
+-we use "web" to define our node.js app that we have already built
 -We use build to point it to the current working directory where it can find the docker file
 -we will also define the port forwarding configuration as well
 -we have a seperate container 'db' which is our my sql database process
@@ -223,7 +223,7 @@ It has a client component that talks to a server component using REST api
 The server aka Docker engine sits on the background and takes care of building and running docker containers.
 A container share the kernel of the host computer.
 The kernel is the core of an operating system(it manages applications and hardware resources)
-Every os has its own karnel and each karnel has different apis
+Every os has its own karnel and each karnel has different APIs
 that is why you cannot run a linux application on a mac and a windows application on a mac
 cos under the hood this application needs to talk to the karnel of this os.
 
@@ -245,7 +245,7 @@ create a folder called hello-docker
 2)cd hello-docker
 change directory to hello-docker
 3)code .
-open vs code
+open Vs-code
 4)create a new file "app.js" and write a javascript code
 5)use "node filename" to see the code in the terminal
 6)create a "Dockerfile"
@@ -307,9 +307,81 @@ type nano to see the text editor
 
     linux file system
 In linux everything is a file
+    Navigating the file system
+1)pwd-print working directory: with this, we can see where we are in the file system
+/=root directory
+2)ls-list: This is to see the list of files and directories
+if you dont like the first layout, you can use
+ls -1
+ls -l
+seeing the content of a directory without going inside the directory
+ls /bin- /bin = an abolute path
+ls bin- bin = a relative part
+3)cd-change directory
+you can type the first letter and use tab to autocomplete
+double tap tab to see all the directories with same first letter
+blue items are directories and white items are file
+4)cd .. - to come out of a directory(one level up)
+cd ../.. -to go two level out of a directory
+cd ~ - shortcut to our home directory
 
+    Manipulating files and directories
+1)from our root directory, we go to our home directory
+cd ~
+2)inside the home directory, we create a directory called test
+mkdir test
+3)rename our test directory to docker using mv
+mv test docker
+4)to create a new file, we use the touch command
+touch hello.txt
+5)using the touch coomand, we can create multiple files in one go
+touch file1.txt  file2.txt file3.txt
+6)we can also use mv to move files to another directory
+mv hello.txt /etc
+ctrl + w: this is to clear an entire word
+7)how to remove one or more files using rm
+rm file1.txt file2.txt
+or remove all files that start with a particular word
+rm file*
+8)to remove a directory and all its content
+rm -r docker/
 
+    Editing and viewing files
+1)lets install nano
+apt update
+apt install nano
+2)supply a file name while opening nano
+nano file1.txt
+3)to exit nano
+ctrl + x
+4)to see the content of this file1.txt using cat(concatinate)
+cat file1.txt
+This is useful if the content is short
+5)But when dealing with long commands use more
+more file1.txt
+use space to go to the next page of more
+press enter to go one line at a time
+The problem with more is that we can only scroll down, we cant scroll up
+-to exist the more command, we press q
+6)we need to install less
+apt install less
+less file1.txt
+using the up and down arrow, we can scroll down and up
+7)we can also use head to display the first few lines of the content of a file
+we can also specify the number of lines
+head -n 5 file1.txt
+8)tail shows the last few lines
+tail -n 5 file1.txt
+    recap
+We can use nano to write something to a file
 
+    Redirections
+standard input represents the keyboard
+standard output represents the screen
+we can always change the source of the input and output and this is called redirection
+1)using the redirection operator(>), we can redirect
+cat file1.txt > file2.txt
+redirect content of file1 to file2
 
 docker commands
 docker ps
@@ -321,7 +393,7 @@ we can see stopped containers
 docker run -it
 to start a container and intract with it(starting a container in interactive mode)
 
-    Package Manager
+
 
 
 
